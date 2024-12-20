@@ -1,6 +1,8 @@
+using PaymentContext.Shared.ValueObjects;
+
 namespace PaymentContext.Domain.Entities;
 
-public class Subscription
+public class Subscription : ValueObject
 {
     private IList<Payment> _payments;
     public Subscription(DateTime? expiredDate)
