@@ -1,8 +1,12 @@
-using PaymentContext.Shared.ValueObjects;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
+using Flunt.Notifications;
+using Flunt.Validations;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities;
 
-public class Subscription : ValueObject
+public class Subscription : Entity
 {
     private IList<Payment> _payments;
     public Subscription(DateTime? expiredDate)
@@ -22,7 +26,15 @@ public class Subscription : ValueObject
 
     public void AddPayment(Payment payment)
     {
-        _payments.Add(payment);
+        AddNotifications(new Contract<Notification>()
+            .Requires()
+            .IsGreaterThan(DateTime.Now, payment.PaidDate, "Subscription.Payments", "A data de pagamento deve ser no futuro")
+        );
+
+        if(IsValid)
+        {
+            _payments.Add(payment);
+        }
     }
 
     public void Activate()

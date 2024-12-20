@@ -1,3 +1,6 @@
+using System.Diagnostics.Contracts;
+using Flunt.Notifications;
+using Flunt.Validations;
 using PaymentContext.Domain.ValueObjects;
 using PaymentContext.Shared.ValueObjects;
 
@@ -24,6 +27,12 @@ public abstract class Payment : ValueObject
         Document = document;
         Address = address;
         Email = email;
+
+        AddNotifications(new Contract<Notification>()
+            .Requires()
+            .IsGreaterThan(0, Total, "Payment.Total", "O total não pode ser zero")
+            .IsGreaterOrEqualsThan(TotalPaid, Total, "Payment.Total", "O valor pago não pode ser menor que o valor total")
+        );
     }
 
     public string Number { get; private set; }
