@@ -30,7 +30,7 @@ public abstract class Payment : ValueObject
 
         AddNotifications(new Contract<Notification>()
             .Requires()
-            .IsGreaterThan(0, Total, "Payment.Total", "O total não pode ser zero")
+            .IsLowerOrEqualsThan(0, Total, "Payment.Total", "O total não pode ser zero")
             .IsGreaterOrEqualsThan(TotalPaid, Total, "Payment.Total", "O valor pago não pode ser menor que o valor total")
         );
     }

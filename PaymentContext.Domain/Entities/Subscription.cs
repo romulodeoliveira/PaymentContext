@@ -15,14 +15,20 @@ public class Subscription : Entity
         LastUpdatedDate = DateTime.Now;
         ExpiredDate = expiredDate;
         IsActive = true;
-        Payments = new List<Payment>();
+        _payments = new List<Payment>();
     }
 
     public DateTime CreatedDate { get; private set;}
     public DateTime LastUpdatedDate { get; private set;}
     public DateTime? ExpiredDate { get; private set;}
     public bool IsActive { get; private set;}
-    public IReadOnlyCollection<Payment> Payments { get; private set; }
+    public IReadOnlyCollection<Payment> Payments
+    {
+        get
+        {
+            return _payments.ToArray();
+        }
+    }
 
     public void AddPayment(Payment payment)
     {
@@ -31,10 +37,7 @@ public class Subscription : Entity
             .IsGreaterThan(DateTime.Now, payment.PaidDate, "Subscription.Payments", "A data de pagamento deve ser no futuro")
         );
 
-        if(IsValid)
-        {
-            _payments.Add(payment);
-        }
+        _payments.Add(payment);
     }
 
     public void Activate()
