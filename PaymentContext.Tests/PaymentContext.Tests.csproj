@@ -26,4 +26,8 @@
     <ProjectReference Include="..\PaymentContext.Domain\PaymentContext.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
 </Project>
