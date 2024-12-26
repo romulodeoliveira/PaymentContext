@@ -38,7 +38,12 @@ public class Student : Entity
         AddNotifications(new Contract<Notification>()
             .Requires()
             .IsFalse(hasSubscriptionActive, "Student.Subscriptions", "Você já tem uma assinatura ativa")
-            .AreEquals(0, subscription.Payments.Count, "Student.Subscriptions.Payments", "Esta assinatura não possui pagamentos")
+            .AreNotEquals(0, subscription.Payments.Count, "Student.Subscriptions.Payments", "Esta assinatura não possui pagamentos")
         );
+
+        if (IsValid)
+        {
+            _subscriptions.Add(subscription);
+        }
     }
 }

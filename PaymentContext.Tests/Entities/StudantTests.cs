@@ -27,19 +27,29 @@ public class StudantTests
     [TestMethod]
     public void ShouldReturnErrorWhenHadActiveSubscription()
     {
-        var payment = new PayPalPayment("12345678", DateTime.Now, DateTime.Now.AddDays(5),  10, 10, "Lula Molusco", _document, _address, _email);
+        var payment = new PayPalPayment(
+            "12345678", 
+            DateTime.Now, 
+            DateTime.Now.AddDays(5),  
+            10.0m, 
+            10.0m,
+            "Lula Molusco", 
+            _document, 
+            _address, 
+            _email
+        );
         _subscription.AddPayment(payment);
         _student.AddSubscription(_subscription);
         _student.AddSubscription(_subscription);
         
-        Assert.IsTrue(_student.IsValid, "Estudante não deve retornar válido quando inscrição estiver ativa");
+        Assert.IsFalse(_student.IsValid, "Estudante não deve retornar válido quando inscrição estiver ativa");
     }
 
     [TestMethod]
     public void ShouldReturnErrorWhenSubscriptionHasNoPayment()
     {
         _student.AddSubscription(_subscription);
-        Assert.IsTrue(_student.IsValid, "Deve retornar erro quando a inscrição não tem pagamento");
+        Assert.IsFalse(_student.IsValid, "Deve retornar erro quando a inscrição não tem pagamento");
     }
 
     [TestMethod]
@@ -48,6 +58,6 @@ public class StudantTests
         var payment = new PayPalPayment("12345678", DateTime.Now, DateTime.Now.AddDays(5),  10, 10, "Lula Molusco", _document, _address, _email);
         _subscription.AddPayment(payment);
         _student.AddSubscription(_subscription);
-        Assert.IsTrue(_student.IsValid, "Deve retornar sucesso quando");
+        Assert.IsTrue(_student.IsValid, "Deve retornar sucesso quando não tiver mais inscrições ativas");
     }
 }
