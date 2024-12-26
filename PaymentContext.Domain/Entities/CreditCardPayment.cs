@@ -12,14 +12,14 @@ public class CreditCardPayment  : Payment
         DateTime expireDate, 
         decimal total, 
         decimal totalPaid, 
-        string owner, 
+        string payer, 
         Document document, 
         Address address, 
         Email email) : base(
             paidDate, 
             expireDate, 
             total, totalPaid, 
-            owner, 
+            payer, 
             document, 
             address, 
             email)

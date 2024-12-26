@@ -10,14 +10,15 @@ public class PayPalPayment : Payment
         DateTime expireDate, 
         decimal total, 
         decimal totalPaid, 
-        string owner, 
+        string payer,
         Document document, 
         Address address, 
         Email email) : base(
             paidDate, 
             expireDate, 
-            total, totalPaid, 
-            owner, 
+            total, 
+            totalPaid, 
+            payer,
             document, 
             address, 
             email)

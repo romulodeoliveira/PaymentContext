@@ -1,8 +1,9 @@
 using PaymentContext.Domain.Enums;
+using PaymentContext.Shared.Commands;
 
 namespace PaymentContext.Domain.Commands;
 
-public class CreatePayPalSubscriptionCommand
+public class CreatePayPalSubscriptionCommand : ICommand
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -14,7 +15,7 @@ public class CreatePayPalSubscriptionCommand
     public DateTime ExpireDate { get; set; }
     public decimal Total { get; set; }
     public decimal TotalPaid { get; set; }
-    public string Owner { get; set; }
+    public string Payer { get; set; }
     public string PayerDocument { get; set; }
     public EDocumentType PayerDocumentType { get; set; }
     public string PayerEmail { get; set; }
